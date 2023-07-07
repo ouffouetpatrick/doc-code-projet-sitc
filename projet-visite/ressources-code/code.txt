@@ -1,0 +1,70 @@
+  exportExcel(): void {
+
+    const exportData = this.listeEtatIdentExcel.map(element => {
+      const Idstatut = element.idrs;
+      if (Idstatut == 1) {
+
+        return {
+          Nom_Prenom: element.identification.nom + ' ' + element.identification.prenom,
+          Contact: element.identification.contact,
+          Profession: element.identification.profession,
+          Date_Naissance: element.identification.dateNaissance,
+          Type_Document: element.identification.typedocument?.libelle,
+          Numero_Document: element.identification.docIdentification,
+          Localite: element.identification.localite?.libelle,
+          Lieu_Habitation: element.identification.lieuHabitation,
+          Lieu_Vote: element.identification.lieuVote,
+          Numero_Carte_Electeur: element.identification.numeroCarteElecteur,
+          Groupe: element.identification.groupe,
+          Enqueteur: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom,
+          Statut: 'En attente'
+        }
+
+      } else if (Idstatut == 2) {
+
+        return {
+          Nom_Prenom: element.identification.nom + ' ' + element.identification.prenom,
+          Contact: element.identification.contact,
+          Profession: element.identification.profession,
+          Date_Naissance: element.identification.dateNaissance,
+          Type_Document: element.identification.typedocument?.libelle,
+          Numero_Document: element.identification.docIdentification,
+          Localite: element.identification.localite?.libelle,
+          Lieu_Habitation: element.identification.lieuHabitation,
+          Lieu_Vote: element.identification.lieuVote,
+          Numero_Carte_Electeur: element.identification.numeroCarteElecteur,
+          Groupe: element.identification.groupe,
+          Enqueteur: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom,
+          Statut: 'Validé'
+        }
+
+      } else {
+
+        return {
+          Nom_Prenom: element.identification.nom + ' ' + element.identification.prenom,
+          Contact: element.identification.contact,
+          Profession: element.identification.profession,
+          Date_Naissance: element.identification.dateNaissance,
+          Type_Document: element.identification.typedocument?.libelle,
+          Numero_Document: element.identification.docIdentification,
+          Localite: element.identification.localite?.libelle,
+          Lieu_Habitation: element.identification.lieuHabitation,
+          Lieu_Vote: element.identification.lieuVote,
+          Numero_Carte_Electeur: element.identification.numeroCarteElecteur,
+          Groupe: element.identification.groupe,
+          Enqueteur: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom,
+          Statut: 'Rejeté'
+        }
+
+      }
+    });
+    /* generate worksheet */
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }

@@ -1,0 +1,12 @@
+//Controller
+
+@Post('demandeVisite')
+    @UseGuards(JwtAuthGuard)
+    @Transaction()
+    async saveAjouterVisite(@CurrentUser() user: UtilisateurEntity, @Body(new ValidationPipe()) visiteDto: VisiteDto,  @TransactionManager() manager: EntityManager) {
+        const result = this.visiteMetierService.demandeVisite(manager, visiteDto, user);
+        return result;
+    }
+
+//Utiliser le decorateur : @CurrentUser()
+//Ajouter : @UseGuards(JwtAuthGuard)

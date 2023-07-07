@@ -1,0 +1,31 @@
+**********************************************
+*************** ORTISSAI *************************
+**********************************************
+
+============ DATABASE PHPMYADMIN (config json) ============
+
+*****BACK****
+dbname: ortissai_db
+user: ortissai_db
+mdp: 5zXIb5toSjEplrlXcPPO
+host: 141.94.175.40
+lien config nest js (port) :7361
+
+****FRONT******
+lien api (prod): http://141.95.152.187:7361
+
+
+============ FTP ACCESS CONNEXION BACK ===================
+utilisateur: ortissai
+mdp: RaJj5whoFTZporKEuuoG
+host: 141.95.152.187
+
+NB: déposer les fichiers dans le dossier api
+
+============ FTP ACCESS CONNEXION BACK ===================
+
+Utiliser le fichier fichier de configuration (name.xml) pour se connecter.
+
+NB: deposer les fichiers dans le dossier
+
+**********************************************************************************************

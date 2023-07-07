@@ -1,0 +1,139 @@
+exportPdf() {
+    let rows: any[] = [
+      [{ text: 'Nom Prenom', style: 'tableHeader' }, { text: 'Contact', style: 'tableHeader' },
+      { text: 'Profession', style: 'tableHeader' }, { text: 'Date Naissance', style: 'tableHeader' },
+      { text: 'Type Document', style: 'tableHeader' }, { text: 'Numero Document', style: 'tableHeader' },
+      { text: 'Localite', style: 'tableHeader' }, { text: 'Lieu Habitation', style: 'tableHeader' },
+      { text: 'Lieu Vote', style: 'tableHeader' }, { text: 'Num Carte Electeur', style: 'tableHeader' },
+      { text: 'Groupe', style: 'tableHeader' }, { text: 'Enqueteur', style: 'tableHeader' }, { text: 'Statut', style: 'tableHeader' }]
+    ];
+    for (let i = 0; i < this.listeEtatIdentExcel.length; i++) {
+      const element = this.listeEtatIdentExcel[i];
+      const Idstatut = element.idrs;
+      if (Idstatut == 1) {
+        let ident = [
+          { text: element.identification.nom + ' ' + element.identification.prenom },
+          { text: element.identification.contact },
+          { text: element.identification.profession },
+          { text: element.identification.dateNaissance },
+          { text: element.identification.typedocument?.libelle },
+          { text: element.identification.docIdentification },
+          { text: element.identification.localite?.libelle },
+          { text: element.identification.lieuHabitation },
+          { text: element.identification.lieuVote },
+          { text: element.identification.numeroCarteElecteur },
+          { text: element.identification.groupe },
+          { text: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom },
+          { text: 'En attente' }
+        ]
+
+        rows.push(ident)
+
+      } else if (Idstatut == 2) {
+        let ident = [
+          { text: element.identification.nom + ' ' + element.identification.prenom },
+          { text: element.identification.contact },
+          { text: element.identification.profession },
+          { text: element.identification.dateNaissance },
+          { text: element.identification.typedocument?.libelle },
+          { text: element.identification.docIdentification },
+          { text: element.identification.localite?.libelle },
+          { text: element.identification.lieuHabitation },
+          { text: element.identification.lieuVote },
+          { text: element.identification.numeroCarteElecteur },
+          { text: element.identification.groupe },
+          { text: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom },
+          { text: 'Validé' }
+        ]
+        rows.push(ident)
+      } else {
+        let ident = [
+          { text: element.identification.nom + ' ' + element.identification.prenom },
+          { text: element.identification.contact },
+          { text: element.identification.profession },
+          { text: element.identification.dateNaissance },
+          { text: element.identification.typedocument?.libelle },
+          { text: element.identification.docIdentification },
+          { text: element.identification.localite?.libelle },
+          { text: element.identification.lieuHabitation },
+          { text: element.identification.lieuVote },
+          { text: element.identification.numeroCarteElecteur },
+          { text: element.identification.groupe },
+          { text: element.identification.utilisateur.nom + ' ' + element.identification.utilisateur.prenom },
+          { text: 'Rejeté' }
+        ]
+        rows.push(ident)
+      }
+
+    }
+
+    const documentDefinition: TDocumentDefinitions = {
+      pageOrientation: 'landscape',
+      header: [
+        { text: 'IDENTIFICATION BAFING', style: 'entete' }
+      ],
+      content: [
+
+        { text: 'LISTE DES IDENTIFICATIONS  DU ' + moment(this.rechercheService.dateJour).format("DD/MM/YYYY"), style: 'entete1', bold: true, fontSize: 25 },
+        {
+          style: 'tableExample',
+          table: {
+            headerRows: 1,
+            body: rows
+          },
+          layout: {
+            hLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 1 : 1;
+            },
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+            },
+            hLineColor: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 'gray' : 'gray';
+            },
+            vLineColor: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
+
+            },
+            fillColor: function (rowIndex, node, columnIndex) {
+              return (rowIndex === 0) ? '#00796b' : null;
+            },
+          }
+        },
+
+      ],
+      styles:
+      {
+        entete: {
+          bold: true,
+          fontSize: 25,
+          color: 'green',
+          alignment: 'center',
+          decoration: 'underline',
+          decorationColor: 'green',
+          margin: [0, 4, 0, 0]
+
+        },
+        entete1: {
+          bold: true,
+          fontSize: 20,
+          color: 'black',
+          alignment: 'center',
+          margin: [0, 15, 0, 15]
+
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15],
+          fontSize: 8,
+        },
+
+        tableHeader: {
+          bold: true,
+          fontSize: 8,
+          color: 'white',
+        }
+      },
+
+    };
+    pdfMake.createPdf(documentDefinition).download();
+  }
